@@ -29,7 +29,7 @@ for f in os.listdir('./cogs'):
         for x in os.listdir(f"./cogs/{f}"):
             if x.endswith(".py"):
                 bot.load_extension(f'cogs.{f}.{x[:-3]}')
-                print("Loaded cog: " + f[:-3])
+                print("Loaded cog: " + x[:-3])
 
 # Run the bot
 token = os.getenv("CTSS Bot Token")
