@@ -5,7 +5,14 @@
 from flask import Flask
 from threading import Thread
 
+import logging
+
 app = Flask('')
+
+# Disable some flask logging
+app.logger.disabled = True
+log = logging.getLogger('werkzeug')
+log.disabled = True
 
 @app.route('/')
 def home():
