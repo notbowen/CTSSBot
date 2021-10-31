@@ -33,7 +33,7 @@ class helpCommand(commands.Cog):
     @commands.command()
     async def adminHelp(self, ctx):
         # Check if user is an admin
-        if check_admin(str(ctx.author.id)) == False:
+        if await check_admin(str(ctx.author.id)) == False:
             await ctx.send(":x: Only admins can access this command lmao :/")
             return
 

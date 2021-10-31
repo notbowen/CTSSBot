@@ -14,7 +14,7 @@ class purgeCommand(commands.Cog):
 
     @commands.command(aliases=["clear"])
     async def purge(ctx, amount=1):
-        if check_admin(str(ctx.author.id)) == False:
+        if await check_admin(str(ctx.author.id)) == False:
             await ctx.send(":x: You are not an admin >:(")
             return
 
