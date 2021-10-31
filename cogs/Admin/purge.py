@@ -6,7 +6,7 @@ import discord
 from discord.ext import commands
 from discord.ext.commands.core import has_permissions
 
-from functions import get_admins
+from functions import check_admin
 
 class purgeCommand(commands.Cog):
     def __init__(self, bot):
@@ -14,9 +14,7 @@ class purgeCommand(commands.Cog):
 
     @commands.command(aliases=["clear"])
     async def purge(ctx, amount=1):
-        admins = await get_admins()
-
-        if str(ctx.author.id) not in admins:
+        if check_admin(str(ctx.author.id)) == False:
             await ctx.send(":x: You are not an admin >:(")
             return
 

@@ -4,7 +4,9 @@
 
 import discord
 from discord.ext import commands
-from discord.ext.commands.core import command
+from discord.ext.commands.core import check, command
+
+from functions import check_admin
 
 class helpCommand(commands.Cog):
     def __init__(self, bot):
@@ -30,6 +32,12 @@ class helpCommand(commands.Cog):
 
     @commands.command()
     async def adminHelp(self, ctx):
+        # Check if user is an admin
+        if check_admin(str(ctx.author.id)) == False:
+            await ctx.send(":x: Only admins can access this command lmao :/")
+            return
+
+        # Embed
         embed = discord.Embed(title="Help", color=0x00ffb7)
         embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/903696474951520397/904335874483965962/logo.png") # CTSS Logo
         embed.set_footer(text=f"Requested by: {ctx.message.author.name}", icon_url=f"{ctx.message.author.avatar_url}")
