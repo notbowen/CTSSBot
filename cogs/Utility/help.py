@@ -23,7 +23,7 @@ class helpCommand(commands.Cog):
         embed.add_field(name="sourceCode:",
                         value="Sends the link of the source code.",
                         inline=False)
-        embed.add_field(name="ping",
+        embed.add_field(name="ping:",
                         value="Displays the latency of the bot.",
                         inline=False)
 
