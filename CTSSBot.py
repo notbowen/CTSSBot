@@ -20,6 +20,9 @@ async def on_ready():
     await bot.change_presence(status=discord.Status.online, activity=discord.Game(name="chelp"))
     print("Bot initialised :D")
 
+# Start the "server"
+keep_alive()
+
 # Load cogs recursively
 # File Structure should follow the form of: ./cogs/folder/code.py
 # Where folder is the category of the script
@@ -34,6 +37,5 @@ for f in os.listdir('./cogs'):
                 print("Loaded cog: " + x[:-3])
 
 # Run the bot
-keep_alive()
 token = os.getenv("CTSS Bot Token")
 bot.run(token)
