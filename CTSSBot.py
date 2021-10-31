@@ -6,6 +6,8 @@ from discord.ext import commands
 
 import os
 
+from keep_alive import keep_alive
+
 # Bot class setup
 bot = commands.Bot(
     command_prefix=["c ", "C ", "c", "C"],
@@ -32,5 +34,6 @@ for f in os.listdir('./cogs'):
                 print("Loaded cog: " + x[:-3])
 
 # Run the bot
+keep_alive()
 token = os.getenv("CTSS Bot Token")
 bot.run(token)
