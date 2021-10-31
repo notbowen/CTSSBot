@@ -5,7 +5,7 @@
 import discord
 from discord.ext import commands
 
-class PingCommand(commands.Cog):
+class pingCommand(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -15,4 +15,4 @@ class PingCommand(commands.Cog):
 
 # Link cog to main bot
 def setup(bot):
-    bot.add_cog(PingCommand(bot))
+    bot.add_cog(pingCommand(bot))
