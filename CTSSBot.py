@@ -5,6 +5,7 @@ import discord
 from discord.ext import commands
 
 import os
+import termcolor
 
 from keep_alive import keep_alive
 
@@ -18,7 +19,7 @@ bot.remove_command("help")
 @bot.event
 async def on_ready():
     await bot.change_presence(status=discord.Status.online, activity=discord.Game(name="chelp"))
-    print("Bot initialised :D")
+    print(termcolor.colored("Bot initialised :D", "green"))
 
 # Start the "server"
 keep_alive()
@@ -29,12 +30,12 @@ keep_alive()
 for f in os.listdir('./cogs'):
     if f.endswith(".py"):
         bot.load_extension(f'cogs.{f[:-3]}')
-        print("Loaded cog: " + f[:-3])
+        print(termcolor.colored("Loaded cog: " + f[:-3], "yellow"))
     else:
         for x in os.listdir(f"./cogs/{f}"):
             if x.endswith(".py"):
                 bot.load_extension(f'cogs.{f}.{x[:-3]}')
-                print("Loaded cog: " + x[:-3])
+                print(termcolor.colored("Loaded cog: " + x[:-3], "yellow"))
 
 # Run the bot
 token = os.getenv("CTSS Bot Token")
