@@ -14,7 +14,7 @@ class helpCommand(commands.Cog):
 
     @commands.command()
     async def help(self, ctx):
-        embed = discord.Embed(title="Help", color=0x00ffb7)
+        embed = discord.Embed(title="Help", color=0x66cdaa)
         embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/903696474951520397/904335874483965962/logo.png") # CTSS Logo
         embed.set_footer(text=f"Requested by: {ctx.message.author.name}", icon_url=f"{ctx.message.author.avatar_url}")
 
