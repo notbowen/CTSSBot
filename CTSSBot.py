@@ -1,6 +1,7 @@
 # Official CTSS Bot
 # Author: wHo#6933
 
+# Libraries
 import discord
 from discord.ext import commands
 
