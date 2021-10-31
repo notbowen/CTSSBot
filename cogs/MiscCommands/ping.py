@@ -1,4 +1,3 @@
-
 # ping.py
 # Ping command
 # Author: wHo#6933
