@@ -27,9 +27,9 @@ class verificationCommand(commands.Cog):
 
     @commands.command()
     async def verify(self, ctx):
-        #if len(ctx.author.roles) > 1:                        # check if user has a role other than @everyone
-            #await ctx.send(":x: You are already verified!")  # if yes > user is verified
-            #return
+        if len(ctx.author.roles) > 1:                        # check if user has a role other than @everyone
+            await ctx.send(":x: You are already verified!")  # if yes > user is verified
+            return
 
         options = [] # List to store all the options user chose
 
