@@ -29,9 +29,13 @@ class verificationCommand(commands.Cog):
     async def verify(self, ctx):
         admin = discord.utils.get(ctx.guild.roles, id=903654645707186236) # get admin role to bypass checks
 
-        if len(ctx.author.roles) > 1 and admin not in ctx.author.roles:                        # check if user has a role other than @everyone
-            await ctx.send(":x: You are already verified!")  # if yes > user is verified
-            return
+        if len(ctx.author.roles) > 1:
+            if admin not in ctx.author.roles:                    # check if user has a role other than @everyone
+                await ctx.send(":x: You are already verified!")  # if yes > user is verified
+                return
+            elif len(ctx.author.roles) > 2: # admin bypass thingy
+                await ctx.send(":x: You are already verified!")
+                return
 
         options = [] # List to store all the options user chose
 
