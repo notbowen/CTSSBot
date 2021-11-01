@@ -4,6 +4,7 @@
 # Libraries
 import discord
 from discord.ext import commands
+from discord_components.client import DiscordComponents
 
 import os
 import termcolor
@@ -19,6 +20,7 @@ bot.remove_command("help")
 
 @bot.event
 async def on_ready():
+    DiscordComponents(bot)
     await bot.change_presence(status=discord.Status.online, activity=discord.Game(name="chelp"))
     print(termcolor.colored("Bot initialised :D", "green"))
 

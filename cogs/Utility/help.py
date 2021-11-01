@@ -4,7 +4,6 @@
 
 import discord
 from discord.ext import commands
-from discord.ext.commands.core import check, command
 
 from functions import check_admin
 
