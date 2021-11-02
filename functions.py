@@ -22,7 +22,7 @@ async def check_admin(id: str):
                           # if id not in admins, no
                         
 # Suggestion file handling
-suggestionFilePath = os.path.join(os.path.dirname(__file__), "cogs\\Suggestions\\suggestions.json")
+suggestionFilePath = os.path.join(os.path.dirname(__file__), "cogs/Suggestions/suggestions.json")
 
 async def readSuggestions():
     with open(suggestionFilePath, "r")as f:
