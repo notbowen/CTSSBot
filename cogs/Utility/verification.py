@@ -27,15 +27,11 @@ class verificationCommand(commands.Cog):
 
     @commands.command()
     async def verify(self, ctx):
-        admin = discord.utils.get(ctx.guild.roles, id=903654645707186236) # get admin role to bypass checks
+        verified = discord.utils.get(ctx.guild.roles, id=905025155925946379) # get verified role to check if user is verified
 
-        if len(ctx.author.roles) > 1:
-            if admin not in ctx.author.roles:                    # check if user has a role other than @everyone
-                await ctx.send(":x: You are already verified!")  # if yes > user is verified
-                return
-            elif len(ctx.author.roles) > 2: # admin bypass thingy
-                await ctx.send(":x: You are already verified!")
-                return
+        if verified in ctx.author.roles:                     # check if user has the verified role
+            await ctx.send(":x: You are already verified!")  # if yes > user is verified
+            return
 
         options = [] # List to store all the options user chose
 
@@ -90,7 +86,7 @@ class verificationCommand(commands.Cog):
                     break
                 else:
                     await self.respond(res, "Lmao this isn't your button :>")
-            except asyncio.TimeoutError:
+            except asyncio.TimeoutError:  # handle timeout
                 await ctx.reply(":x: You took too long to respond :<")
                 await levelMsg.edit(embed=levelEmbed, components=disabledLevelButtons)
                 return
@@ -139,7 +135,7 @@ class verificationCommand(commands.Cog):
                     break
                 else:
                     await self.respond(res, "Lmao this isn't your button :>")
-            except asyncio.TimeoutError:
+            except asyncio.TimeoutError:  # handle timeout
                 await ctx.reply(":x: You took too long to respond :<")
                 await houseMsg.edit(embed=houseEmbed, components=disabledHouseButtons)
                 return
@@ -152,6 +148,9 @@ class verificationCommand(commands.Cog):
             except Exception as e:
                 await ctx.send(f":x: There was an error, pls report :|\nLog:\n```{e}```")
                 return
+
+        # Add verified role to user
+        await ctx.author.add_roles(verified)
 
         await ctx.reply(":white_check_mark: Roles added!")
 
