@@ -1,4 +1,3 @@
-1. Add verify to help command
-2. Add verified role
-3. Organise verification code
-4. Implement suggestions?
+- Add verified role
+- Organise verification code
+- Implement suggestions?
