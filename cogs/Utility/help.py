@@ -19,6 +19,9 @@ class helpCommand(commands.Cog):
 
         # Adds fields to the embed
         # TODO: Add more commands to be displayed
+        embed.add_field(name="verify:",
+                        value="Verifies the user.",
+                        inline=False)
         embed.add_field(name="sourceCode:",
                         value="Sends the link of the source code.",
                         inline=False)
