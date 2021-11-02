@@ -4,6 +4,7 @@
 
 # Libraries
 import json
+import os
 
 # Admin matters
 async def get_admins():
@@ -21,14 +22,19 @@ async def check_admin(id: str):
                           # if id not in admins, no
                         
 # Suggestion file handling
+suggestionFilePath = os.path.join(os.path.dirname(__file__), "cogs\\Suggestions\\suggestions.json")
+
 async def readSuggestions():
-    with open("./Suggestions/suggestions.json", "r")as f:
+    with open(suggestionFilePath, "r")as f:
         data = json.load(f)
         f.close()
+
+    # make keys into integers for ez parsing
+    data = {int(key):dict(value) for key,value in data.items()}
 
     return data
 
 async def writeSuggestions(dic : dict):
-    with open("./Suggestions/suggestions.json", "w")as f:
+    with open(suggestionFilePath, "w")as f:
         data = json.dump(dic, f, indent=4) # indent for formatting
         f.close()
