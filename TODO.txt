@@ -1,3 +1,1 @@
-- Add verified role
-- Organise verification code
 - Implement suggestions?
