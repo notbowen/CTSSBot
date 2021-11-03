@@ -49,6 +49,9 @@ class helpCommand(commands.Cog):
         embed.add_field(name="purge(amount):",
                         value="Deletes a specified amount of messages, defaults to 1 if the amount is not specified.",
                         inline=False)
+        embed.add_field(name="listSuggestions(max amount per page):",
+                        value="Shows the suggestions.",
+                        inline=False)
 
         # Sends the embed
         await ctx.send(embed=embed)
