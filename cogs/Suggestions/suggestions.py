@@ -16,15 +16,17 @@
 #       }
 # }
 
+from typing import List
 import discord
 from discord import embeds
 from discord.ext import commands
-from discord_components import ActionRow, Button, ButtonStyle
+from discord_components import ActionRow, Button, ButtonStyle, component
 
 import random
 import asyncio
 
 from discord.ext.commands.core import command
+from discord_components.interaction import InteractionEventType
 
 from functions import readSuggestions, writeSuggestions, check_admin, generateRandomColor
 
@@ -67,6 +69,7 @@ class suggestionsCommand(commands.Cog):
             await ctx.send(":x: Invalid results per page value :<")
             return
 
+        index = 0
         data = await readSuggestions()
         idList = [] # List of suggestion IDs to be displayed
 
@@ -78,20 +81,73 @@ class suggestionsCommand(commands.Cog):
                 idList.append(tmp)
                 tmp = []
 
+        # buttons
+        options = [ActionRow(
+            Button(label="|<", style=ButtonStyle.gray, custom_id="btn_start"),
+            Button(label="<", style=ButtonStyle.gray, custom_id="btn_left"),
+            Button(label=">", style=ButtonStyle.gray, custom_id="btn_right"),
+            Button(label=">|", style=ButtonStyle.gray, custom_id="btn_end")
+        )]
+
+        disabledOptions = [ActionRow(
+            Button(label="|<", style=ButtonStyle.gray, custom_id="btn_start", disabled=True),
+            Button(label="<", style=ButtonStyle.gray, custom_id="btn_left", disabled=True),
+            Button(label=">", style=ButtonStyle.gray, custom_id="btn_right", disabled=True),
+            Button(label=">|", style=ButtonStyle.gray, custom_id="btn_end", disabled=True)
+        )]
+
         # Display data
+        embed = await self.generateSuggestions(ctx, idList, data, 0)
+        msg = await ctx.send(embed=embed, components=options)
+
+        # handle button clicks
+        while True:
+            try:
+                res = await self.bot.wait_for("button_click", timeout=60)
+                if res.channel == ctx.channel and res.user == ctx.author:
+                    if res.component.custom_id == "btn_start":
+                        await res.respond(type=6, content="\u2800")
+                        await msg.edit(embed=await self.generateSuggestions(ctx, idList, data, 0), components=options)
+                        index = 0
+                    if res.component.custom_id == "btn_left" and (index-1) != 0:
+                        await res.respond(type=6, content="\u2800")
+                        await msg.edit(embed=await self.generateSuggestions(ctx, idList, data, index-1), components=options)
+                        index -= 1
+                    else:
+                        await res.respond(type=6, content="\u2800")
+                        await msg.edit(embed=await self.generateSuggestions(ctx, idList, data, index), components=options)
+                    if res.component.custom_id == "btn_right" and (index+1) != len(idList):
+                        await res.respond(type=6, content="\u2800")
+                        await msg.edit(embed=await self.generateSuggestions(ctx, idList, data, index+1), components=options)
+                        index += 1
+                    else:
+                        await res.respond(type=6, content="\u2800")
+                        await msg.edit(embed=await self.generateSuggestions(ctx, idList, data, index), components=options)
+                    if res.component.custom_id == "btn_end":
+                        await res.respond(type=6, content="\u2800")
+                        await msg.edit(embed=await self.generateSuggestions(ctx, idList, data, len(idList)), components=options)
+                        index = len(idList)
+                else:
+                    await self.respond(res, "Lmao this isn't your button :>")
+            except asyncio.TimeoutError:
+                await msg.edit(embed=embed, components=disabledOptions)
+                break
+
+    async def generateSuggestions(self, ctx, idList, data, index : int):
         color = await generateRandomColor()
         embed = discord.Embed(title="Suggestions", color=color)
         embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/903696474951520397/904335874483965962/logo.png") # CTSS Logo
         embed.set_footer(text=f"Requested by: {ctx.message.author.name}", icon_url=f"{ctx.message.author.avatar_url}")
-
-        index = 0
 
         for i in idList[index]:
             embed.add_field(name=f"Suggestion #{i} by {ctx.author.name}#{ctx.author.discriminator}",
                             value=f"Suggestion: {data[i]['suggestion']}",
                             inline=False)
 
-        await ctx.send(embed=embed)
+        return embed
+
+    async def respond(self, res, content):
+        await res.respond(content=content)
 
 # Link cog to main bot
 def setup(bot):
