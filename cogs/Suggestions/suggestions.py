@@ -96,13 +96,13 @@ class suggestionsCommand(commands.Cog):
         embed = await self.generateSuggestions(ctx, idList, data, 0)
         msg = await ctx.send(embed=embed, components=options)
 
-        # handle button clicks
+        # handle button clicks and change pages
         while True:
             try:
                 res = await self.bot.wait_for("button_click", timeout=60)
                 if res.channel == ctx.channel and res.user == ctx.author:
                     if res.component.custom_id == "btn_start":
-                        await res.respond(type=6, content="\u2800")
+                        await res.respond(type=6, content="\u2800") # \u2800 sends empty stuff, used to bypass HTTP error thingy
                         await msg.edit(embed=await self.generateSuggestions(ctx, idList, data, 0), components=options)
                         index = 0
                     if res.component.custom_id == "btn_left" and index != 0:
@@ -133,7 +133,7 @@ class suggestionsCommand(commands.Cog):
         color = await generateRandomColor()
         embed = discord.Embed(title=f"Suggestions, Page {index + 1}", color=color)
         embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/903696474951520397/904335874483965962/logo.png") # CTSS Logo
-        embed.set_footer(text=f"Page {index + 1}", icon_url=f"{ctx.message.author.avatar_url}")
+        embed.set_footer(text=f"Requested by: {ctx.author.name}#{ctx.author.discriminator}, Page {index + 1}", icon_url=f"{ctx.message.author.avatar_url}")
 
         for i in idList[index]:
             embed.add_field(name=f"Suggestion #{i} by {ctx.author.name}#{ctx.author.discriminator}",
