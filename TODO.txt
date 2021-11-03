@@ -1,1 +1,2 @@
-- Implement suggestions?
+- Add filters to suggestion list
+- Suggestion accept and decline
