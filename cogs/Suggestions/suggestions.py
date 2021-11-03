@@ -135,7 +135,7 @@ class suggestionsCommand(commands.Cog):
 
     async def generateSuggestions(self, ctx, idList, data, index : int):
         color = await generateRandomColor()
-        embed = discord.Embed(title="Suggestions", color=color)
+        embed = discord.Embed(title=f"Suggestions, Page {index + 1}", color=color)
         embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/903696474951520397/904335874483965962/logo.png") # CTSS Logo
         embed.set_footer(text=f"Requested by: {ctx.message.author.name}", icon_url=f"{ctx.message.author.avatar_url}")
 
