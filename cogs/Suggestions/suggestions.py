@@ -55,12 +55,8 @@ class suggestionsCommand(commands.Cog):
 
     # List pending commands
     # Admin only ;-;
-    """WORK IN PROGRESS"""
-    """BUGGED"""
     @commands.command()
     async def listSuggestions(self, ctx, resultsPerPage="5"):
-        await ctx.reply("WARNING: This part of the code is still WIP, there would be like 69 bugs :<")
-
         if await check_admin(str(ctx.author.id)) == False:
             await ctx.reply(":x: This command is only for admins :<")
             return
