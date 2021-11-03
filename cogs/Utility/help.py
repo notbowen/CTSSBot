@@ -5,7 +5,7 @@
 import discord
 from discord.ext import commands
 
-from functions import check_admin
+from functions import check_admin, generateRandomColor
 
 class helpCommand(commands.Cog):
     def __init__(self, bot):
@@ -40,7 +40,7 @@ class helpCommand(commands.Cog):
             return
 
         # Embed
-        embed = discord.Embed(title="Help", color=0x00ffb7)
+        embed = discord.Embed(title="Help", color=await generateRandomColor())
         embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/903696474951520397/904335874483965962/logo.png") # CTSS Logo
         embed.set_footer(text=f"Requested by: {ctx.message.author.name}", icon_url=f"{ctx.message.author.avatar_url}")
 
