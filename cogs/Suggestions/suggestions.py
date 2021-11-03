@@ -109,24 +109,24 @@ class suggestionsCommand(commands.Cog):
                         await res.respond(type=6, content="\u2800")
                         await msg.edit(embed=await self.generateSuggestions(ctx, idList, data, 0), components=options)
                         index = 0
-                    if res.component.custom_id == "btn_left" and (index-1) != 0:
+                    if res.component.custom_id == "btn_left" and index != 0:
                         await res.respond(type=6, content="\u2800")
                         await msg.edit(embed=await self.generateSuggestions(ctx, idList, data, index-1), components=options)
                         index -= 1
-                    else:
+                    elif res.component.custom_id == "btn_left" and index == 0:
                         await res.respond(type=6, content="\u2800")
                         await msg.edit(embed=await self.generateSuggestions(ctx, idList, data, index), components=options)
-                    if res.component.custom_id == "btn_right" and (index+1) != len(idList):
+                    if res.component.custom_id == "btn_right" and index != (len(idList) - 1):
                         await res.respond(type=6, content="\u2800")
                         await msg.edit(embed=await self.generateSuggestions(ctx, idList, data, index+1), components=options)
                         index += 1
-                    else:
+                    elif res.component.custom_id == "btn_right" and index == (len(idList) - 1):
                         await res.respond(type=6, content="\u2800")
                         await msg.edit(embed=await self.generateSuggestions(ctx, idList, data, index), components=options)
                     if res.component.custom_id == "btn_end":
                         await res.respond(type=6, content="\u2800")
-                        await msg.edit(embed=await self.generateSuggestions(ctx, idList, data, len(idList)), components=options)
-                        index = len(idList)
+                        await msg.edit(embed=await self.generateSuggestions(ctx, idList, data, (len(idList) - 1)), components=options)
+                        index = len(idList) - 1
                 else:
                     await self.respond(res, "Lmao this isn't your button :>")
             except asyncio.TimeoutError:
