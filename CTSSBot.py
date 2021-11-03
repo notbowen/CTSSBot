@@ -30,6 +30,7 @@ keep_alive()
 # Load cogs recursively
 # File Structure should follow the form of: ./cogs/folder/code.py
 # Where folder is the category of the script
+print(termcolor.colored("Loading cogs...", "yellow"))
 for f in os.listdir('./cogs'):
     if f.endswith(".py"):
         bot.load_extension(f'cogs.{f[:-3]}')
@@ -39,6 +40,7 @@ for f in os.listdir('./cogs'):
             if x.endswith(".py"):
                 bot.load_extension(f'cogs.{f}.{x[:-3]}')
                 print(termcolor.colored("Loaded cog: " + x[:-3], "yellow"))
+print(termcolor.colored("Cogs loaded :D", "yellow"))
 
 # Run the bot
 token = os.getenv("CTSS Bot Token")
